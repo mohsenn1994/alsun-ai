@@ -9,6 +9,8 @@ try {
   await ensureUploadDir();
   await app.listen({ port: config.port, host: config.host });
 } catch (err) {
+  // process.exitCode lets the event loop flush logs before the process dies.
+  // process.exit(1) terminates immediately and swallows stderr.
   console.error('Fatal startup error:', err);
-  process.exit(1);
+  process.exitCode = 1;
 }
