@@ -1,16 +1,21 @@
-import 'dotenv/config'; // load backend/.env in dev; a no-op when the platform injects env
+import 'dotenv/config';
 import { buildApp } from './app';
 import { config } from './config';
 import { ensureUploadDir } from './lib/storage';
+import { sequelize } from './db/client';
 
-// Entrypoint: build the app, ensure the upload dir/volume exists, then listen.
 try {
   const app = await buildApp();
   await ensureUploadDir();
+  // Listen first so the /health liveness check passes immediately.
   await app.listen({ port: config.port, host: config.host });
+  // Sync DB tables after the server is already listening. buildApp() registered
+  // the models via the db import chain; sequelize.sync() just creates the tables.
+  sequelize
+    .sync()
+    .then(() => console.log('Database synced.'))
+    .catch(err => console.error('DB sync failed:', err));
 } catch (err) {
-  // process.exitCode lets the event loop flush logs before the process dies.
-  // process.exit(1) terminates immediately and swallows stderr.
   console.error('Fatal startup error:', err);
   process.exitCode = 1;
 }
