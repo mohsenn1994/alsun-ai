@@ -10,6 +10,20 @@ TypeScript monorepo.
 - Web: `https://<your-app>.vercel.app`
 - API: `https://<your-api>.up.railway.app`
 
+## Screenshots
+
+| Login | Forms dashboard |
+|---|---|
+| ![Login](docs/screenshots/login.png) | ![Forms](docs/screenshots/forms.png) |
+
+| Form editor | Public form |
+|---|---|
+| ![Editor](docs/screenshots/editor.png) | ![Public form](docs/screenshots/public-form.png) |
+
+| Responses list | Submission detail |
+|---|---|
+| ![Responses](docs/screenshots/responses.png) | ![Submission](docs/screenshots/submission.png) |
+
 ## Stack
 
 - **Backend** — Fastify 5 + TypeScript, Sequelize (PostgreSQL), `@fastify/multipart` for uploads
