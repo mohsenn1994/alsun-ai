@@ -1,0 +1,12 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+# Apply pending migrations, then start the server. db:migrate is idempotent.
+startCommand = "npm run db:migrate -w @alsun/backend && npm run start -w @alsun/backend"
+# Liveness endpoint (no DB dependency) so a transient DB blip won't kill the app.
+healthcheckPath = "/health"
+healthcheckTimeout = 100
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3

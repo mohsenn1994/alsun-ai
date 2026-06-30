@@ -1,0 +1,62 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # Re-run the full gate before anything ships.
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  # Backend → Railway. Builds from the root Dockerfile (per railway.toml) and
+  # runs migrations on start. Requires the RAILWAY_TOKEN secret (a project token)
+  # and the RAILWAY_SERVICE repo variable (the backend service name).
+  deploy-api:
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Railway CLI
+        run: npm i -g @railway/cli
+      - name: Deploy
+        run: railway up --ci --service "$RAILWAY_SERVICE"
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_SERVICE: ${{ vars.RAILWAY_SERVICE }}
+
+  # Frontend → Vercel. The Vercel project's Root Directory must be `frontend`
+  # (it installs the npm workspace so @alsun/schemas resolves). Requires the
+  # VERCEL_TOKEN / VERCEL_ORG_ID / VERCEL_PROJECT_ID secrets.
+  deploy-web:
+    needs: verify
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install Vercel CLI
+        run: npm i -g vercel
+      - name: Pull, build, and deploy
+        run: |
+          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          vercel build --prod --token="$VERCEL_TOKEN"
+          vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
