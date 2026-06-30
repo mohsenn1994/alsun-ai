@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# environment — keep the .env.example templates, ignore the real ones
+.env
+.env.local
+.env.*.local
+
+# local file uploads (dev storage; Railway volume in prod)
+uploads/
+
+# test coverage
+coverage/
+
+# logs
+*.log
+npm-debug.log*
+
+# editor / OS
+.DS_Store
+.vscode/
+
+# Vercel CLI project config (created by `vercel link`)
+.vercel

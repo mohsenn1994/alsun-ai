@@ -1,0 +1,23 @@
+{
+  "name": "alsun",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "shared/schemas",
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "npm run dev -w @alsun/backend",
+    "dev:frontend": "npm run dev -w @alsun/frontend",
+    "build": "npm run build -w @alsun/frontend",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "db:migrate": "npm run db:migrate -w @alsun/backend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
