@@ -12,17 +12,17 @@ TypeScript monorepo.
 
 ## Screenshots
 
-| Login | Forms dashboard |
+| Login | Forms Dashboard |
 |---|---|
-| ![Login](docs/screenshots/login.png) | ![Forms](docs/screenshots/forms.png) |
+| ![Login](docs/screenshots/login.png) | ![Forms Dashboard](docs/screenshots/forms.png) |
 
-| Form editor | Public form |
+| Form Editor | Public Form |
 |---|---|
-| ![Editor](docs/screenshots/editor.png) | ![Public form](docs/screenshots/public-form.png) |
+| ![Form Editor](docs/screenshots/editor.png) | ![Public Form](docs/screenshots/public-form.png) |
 
-| Responses list | Submission detail |
+| Responses List | Submission Detail |
 |---|---|
-| ![Responses](docs/screenshots/responses.png) | ![Submission](docs/screenshots/submission.png) |
+| ![Responses List](docs/screenshots/responses.png) | ![Submission Detail](docs/screenshots/submission.png) |
 
 ## Stack
 
@@ -197,7 +197,7 @@ volume-persistence verification).
 
 ## Scope, assumptions & future work
 
-Deliberate simplifications for this exercise:
+Deliberate simplifications:
 
 - **Single creator** — credentials from env; no multi-user accounts or organizations.
 - **No published-form versioning** — edits to a published form take effect immediately for
@@ -209,13 +209,7 @@ Deliberate simplifications for this exercise:
 - **`sequelize.sync()`** for schema setup — a real deployment would use versioned migrations
   (sequelize-cli / Umzug).
 
-**Bonus — conditional visibility (not yet implemented):** the schema reserves a
-`visibilityRule` field per question (a placeholder today). The intended design is a
-recursive boolean rule tree (AND/OR/NOT with type-specific operators) plus a pure
-`evaluate()` in `@alsun/schemas`, re-checked server-side at submit time so hidden questions
-aren't required. See [`ARCHITECTURE.md`](./ARCHITECTURE.md).
-
 ## More
 
-- [`ARCHITECTURE.md`](./ARCHITECTURE.md) — full plan, data model, API surface, task breakdown
+- [`ARCHITECTURE.md`](./ARCHITECTURE.md) — system architecture, data model, and API design
 - [`DEPLOY.md`](./DEPLOY.md) — deployment runbook

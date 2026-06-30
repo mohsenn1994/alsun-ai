@@ -30,11 +30,7 @@ export const fileConfigSchema = z.object({
 });
 export type FileConfig = z.infer<typeof fileConfigSchema>;
 
-/**
- * Visibility rule placeholder. The full recursive Condition tree + evaluate()
- * land here in Phase 6 (the bonus). Stored in questions.visibility_rule jsonb;
- * null means "always visible".
- */
+/** Per-question display rule. null means always visible. */
 export const visibilityRuleSchema = z.unknown().nullable();
 
 /* ---- Question entity (as returned by the API) ----
