@@ -25,3 +25,4 @@ npm-debug.log*
 
 # Vercel CLI project config (created by `vercel link`)
 .vercel
+.env*
