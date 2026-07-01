@@ -8,7 +8,7 @@ TypeScript monorepo.
 **Live demo**
 
 - Web: https://alsun-ai-frontend.vercel.app
-- API: `https://<your-api>.up.railway.app` _(see [`DEPLOY.md`](./DEPLOY.md))_
+- API: https://alsun-ai-production.up.railway.app
 
 ## Screenshots
 
