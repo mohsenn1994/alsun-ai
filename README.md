@@ -5,10 +5,10 @@ shareable public link; collect responses (including file uploads) from anonymous
 respondents; and review submissions with downloadable files — all in a typed
 TypeScript monorepo.
 
-**Live demo** _(fill in once deployed — see [CI/CD](#cicd) and [`DEPLOY.md`](./DEPLOY.md))_
+**Live demo**
 
-- Web: `https://<your-app>.vercel.app`
-- API: `https://<your-api>.up.railway.app`
+- Web: https://alsun-ai-frontend.vercel.app
+- API: `https://<your-api>.up.railway.app` _(see [`DEPLOY.md`](./DEPLOY.md))_
 
 ## Screenshots
 
